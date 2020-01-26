@@ -37,17 +37,17 @@ abbr{
     z-index:9999; 
     border: 0;
     border-radius:0px;
-    background-color: #55B559;
-    padding: 28px;
+    //background-color: #55B559;
+    padding: 23px;
     text-align: center;
-    color: #fff;
+    //color: #fff;
     font-weight: 450;
     .close{
-        color: #fff !important;
+        color: #000 !important;
         opacity: 0.80;
     }
     .close:hover{
-        color: #fff !important;
+        color: #000 !important;
         opacity: 1;
     }
 
