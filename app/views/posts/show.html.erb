@@ -12,17 +12,25 @@
 				              Back
 				            <% end %>
 
-				            <%= link_to edit_post_path(@post),:class=>"btn btn-outline-dark" do %>
-				              Edit
+							<% if can? :update, @post %>
+					            <%= link_to edit_post_path(@post),:class=>"btn btn-outline-dark" do %>
+					              Edit
+					            <% end %>
 				            <% end %>
 
-				            <%= link_to post_path,method: :delete,data:{confirm:'Are you sure?'},:class=>"btn btn-outline-dark" do %>
-				              Delete
-				            <% end %>
+				            <% if can? :destroy, @post %>
+					            <%= link_to post_path,method: :delete,data:{confirm:'Are you sure?'},:class=>"btn btn-outline-dark" do %>
+					              Delete
+					            <% end %>
+					        <% end %>
 
-				            <%= link_to new_post_path,:class=>"btn btn-outline-dark" do %>
-				              New Post
-				            <% end %>
+							<% if user_signed_in? %>
+								<% if can? :create, @post %>
+						            <%= link_to new_post_path,:class=>"btn btn-outline-dark" do %>
+						              New Post
+						            <% end %>
+						        <% end %>
+						    <% end %>
 
           				</div>
 					</div>
@@ -61,7 +69,7 @@
 
 <div class="row justify-content-center" style="margin-top: 5vh">
 	<div class="col-md-10">
-		<div class="card">
+		<div class="card mb-2">
 			<div class="card-body">
 				<% if user_signed_in? %>
 				<div class="post-comments">
@@ -70,8 +78,6 @@
 	                  <%= render 'comments/comment', comment: comment %>
 	                </div>
 	              <% end %>
-
-
 
 	              <%= form_with model: [@post, @comment], remote: true do |f| %>
 	                <%= f.text_area :body,:class=>"form-control",placeholder:'Say something ...',rows:5  %>

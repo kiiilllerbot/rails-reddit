@@ -31,8 +31,10 @@
 
           <div class="float-right">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <%= link_to post,method: :delete, data:{confirm:'Are you sure?'},:class=>"btn btn-outline-dark" do %>
-                Delete
+              <% if can? :destroy, post %>
+                <%= link_to post,method: :delete, data:{confirm:'Are you sure?'},:class=>"btn btn-outline-danger" do %>
+                  Delete
+                <% end %>
               <% end %>
             </div>
           </div>

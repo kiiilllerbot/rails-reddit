@@ -11,8 +11,10 @@
 		<% end %>
 		<div class="float-right">
 			<% if user_signed_in? %>
-			<%= link_to "Delete", post_comment_path(@post, comment), method: :delete, remote: true,:class=>"btn btn-sm btn-danger"%>
-		<% end %>
+				<% if current_user && current_user == comment.user || current_user.admin? %>
+					<%= link_to "Delete", post_comment_path(@post, comment), method: :delete, remote: true,:class=>"btn btn-sm btn-danger"%>
+				<% end %>
+			<% end %>
 		</div>
 		<br>
 		<small class="text-muted"><%= time_ago_in_words(comment.created_at) %> ago</small>

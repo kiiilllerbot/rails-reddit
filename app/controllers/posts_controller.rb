@@ -1,9 +1,13 @@
 class PostsController < ApplicationController
+
+  load_and_authorize_resource
+  skip_authorize_resource :only => [:upvote, :downvote]
+  
   before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.order('created_at DESC')
   end
 
   def show
