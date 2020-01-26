@@ -44,7 +44,13 @@
 						</span>
 						<p class="text-justify"><%= @post.body %></p>
 						<p>
-							<i class="far fa-comment"></i> 10 comments
+							<i class="far fa-comment"></i>
+							<%= @post.comments.count %>
+							<% if @post.comments.count > 1%>
+								Comments
+							<% else %>
+								Comment
+							<% end %>
 						</p>
 					</div>
 				</div>
@@ -52,3 +58,34 @@
 		</div>
 	</div>
 </div>
+
+<div class="row justify-content-center" style="margin-top: 5vh">
+	<div class="col-md-10">
+		<div class="card">
+			<div class="card-body">
+				<% if user_signed_in? %>
+				<div class="post-comments">
+	              <% @comments.each do |comment| %>
+	                <div id="comment_pane">
+	                  <%= render 'comments/comment', comment: comment %>
+	                </div>
+	              <% end %>
+
+
+
+	              <%= form_with model: [@post, @comment], remote: true do |f| %>
+	                <%= f.text_area :body,:class=>"form-control",placeholder:'Say something ...',rows:5  %>
+	                <div style="padding-top: 5px">
+	                  <%= f.submit "Comment",:class=>"btn btn-sm btn-primary", remote: true %>
+	                  <%= link_to "Back",posts_path,:class=>"btn btn-sm btn-secondary" %>
+	                </div>
+	            <% end %>
+			<% else %>
+			<p class="text-muted">Please <span>
+				<%= link_to "Login", new_user_session_path %>
+			</span> to view comments and post comment.</p>
+			<% end %>
+			</div>
+		</div>
+	</div>
+</div>	
